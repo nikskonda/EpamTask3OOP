@@ -5,13 +5,15 @@
  */
 package by.epam.java.training.entity.component;
 
+import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
  *
  * @author niksk
  */
-public class Gun {
+public class Gun implements Serializable, Comparator<Gun> {
 
     private static final long serialVersionUID = 1L;
 
@@ -52,19 +54,46 @@ public class Gun {
         this.numberOfShells = numberOfShells;
     }
 
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Gun gun = (Gun) o;
-        return Double.compare(gun.caliber, caliber) == 0 &&
-                numberOfShells == gun.numberOfShells &&
-                Objects.equals(name, gun.name);
+    public int compare(Gun g1, Gun g2) {
+        return Double.compare(g1.caliber, g2.caliber);
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Gun gun = (Gun) obj;
+        if (!this.name.equals(gun.name)){
+            return false;
+        }
+        if (this.caliber != gun.caliber){
+            return false;
+        }
+        if (this.numberOfShells != gun.numberOfShells){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public int hashCode() {
+        final int prime = 31;
+        int hashCode = 0;
+        hashCode += this.name.hashCode();
+        hashCode += Double.hashCode(this.caliber);
+        hashCode += prime*numberOfShells;
+        return hashCode;
+    }
 
-        return Objects.hash(name, caliber, numberOfShells);
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(Gun.class.getSimpleName());
+        sb.append(":\n\t").append(this.name)
+                .append("\n\tCaliber=").append(this.caliber)
+                .append("\n\tShells=").append(this.numberOfShells).append(" qnt\n");
+        return sb.toString();
     }
 }

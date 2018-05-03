@@ -5,29 +5,30 @@
  */
 package by.epam.java.training.entity.component;
 
-import java.util.Objects;
+import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  *
  * @author niksk
  */
-public class Engine {
+public class Engine implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private String name;
     private String model;
-    private double weightInKg;
-    private double power;
+    private double weight;
+    private int power;
     private double capacity;
 
     public Engine() {
     }
 
-    public Engine(String name, String model, double weightInKg, double power, double capacity) {
+    public Engine(String name, String model, double weight, int power, double capacity) {
         this.name = name;
         this.model = model;
-        this.weightInKg = weightInKg;
+        this.weight = weight;
         this.power = power;
         this.capacity = capacity;
     }
@@ -48,19 +49,19 @@ public class Engine {
         this.model = model;
     }
 
-    public double getWeightInKg() {
-        return weightInKg;
+    public double getWeight() {
+        return weight;
     }
 
-    public void setWeightInKg(double weightInKg) {
-        this.weightInKg = weightInKg;
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
-    public double getPower() {
+    public int getPower() {
         return power;
     }
 
-    public void setPower(double power) {
+    public void setPower(int power) {
         this.power = power;
     }
 
@@ -73,20 +74,49 @@ public class Engine {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Engine engine = (Engine) o;
-        return Double.compare(engine.weightInKg, weightInKg) == 0 &&
-                Double.compare(engine.power, power) == 0 &&
-                Double.compare(engine.capacity, capacity) == 0 &&
-                Objects.equals(name, engine.name) &&
-                Objects.equals(model, engine.model);
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Engine engine = (Engine) obj;
+
+        if (this.name.equals(engine.name)){
+            return false;
+        }
+        if (this.model.equals(engine.model)){
+            return false;
+        }
+        if (Double.compare(engine.weight, weight) != 0){
+            return false;
+        }
+        if (Double.compare(engine.power, power) != 0){
+            return false;
+        }
+        if (Double.compare(engine.capacity, capacity) != 0){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public int hashCode() {
+        int hashCode = 0;
+        hashCode+=this.name.hashCode();
+        hashCode+= Double.hashCode(this.capacity);
+        hashCode+= Double.hashCode(this.weight);
+        hashCode+= Double.hashCode(this.power);
+        hashCode+=Double.hashCode(this.power);
+        return hashCode;
+    }
 
-        return Objects.hash(name, model, weightInKg, power, capacity);
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder(Engine.class.getSimpleName());
+        sb.append(":\n\t").append(this.name)
+                .append("\n\tModel=").append(this.model)
+                .append("\n\tPower=").append(this.power)
+                .append("\n\tCapacity=").append(this.capacity)
+                .append("\n\tWeight=").append(this.weight).append(" KG\n");
+        return sb.toString();
     }
 }

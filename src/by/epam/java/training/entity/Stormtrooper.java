@@ -5,8 +5,11 @@
  */
 package by.epam.java.training.entity;
 
+import by.epam.java.training.entity.component.Engine;
+import by.epam.java.training.entity.component.Gun;
+import by.epam.java.training.entity.component.Wing;
+
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  *
@@ -16,47 +19,55 @@ public class Stormtrooper extends MilitaryPlane implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int numberOfMachineGuns;
-    private int numberOfMissiles;
+    private int numberOfBombs;
 
     public Stormtrooper() {
     }
 
-    public Stormtrooper(int numberOfMachineGuns, int numberOfMissiles) {
-        this.numberOfMachineGuns = numberOfMachineGuns;
-        this.numberOfMissiles = numberOfMissiles;
+    public Stormtrooper(String name, int crewMembers, double maxSpeed, int fuelConsumption, double distantion, Wing wing, Engine engine, Gun gun, int numberOfBombs) {
+        super(name, crewMembers, maxSpeed, fuelConsumption, distantion, wing, engine, gun);
+        this.numberOfBombs = numberOfBombs;
     }
 
-    public int getNumberOfMachineGuns() {
-        return numberOfMachineGuns;
+    public int getNumberOfBombs() {
+        return numberOfBombs;
     }
 
-    public void setNumberOfMachineGuns(int numberOfMachineGuns) {
-        this.numberOfMachineGuns = numberOfMachineGuns;
-    }
-
-    public int getNumberOfMissiles() {
-        return numberOfMissiles;
-    }
-
-    public void setNumberOfMissiles(int numberOfMissiles) {
-        this.numberOfMissiles = numberOfMissiles;
+    public void setNumberOfBombs(int numberOfBombs) {
+        this.numberOfBombs = numberOfBombs;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null) return false;
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Stormtrooper that = (Stormtrooper) o;
-        return numberOfMachineGuns == that.numberOfMachineGuns &&
-                numberOfMissiles == that.numberOfMissiles;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        if (!super.equals(obj)) return false;
+        Stormtrooper fighter = (Stormtrooper) obj;
+        if (this.numberOfBombs != fighter.numberOfBombs){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public int hashCode() {
+        final int prime = 31;
+        int hashCode = 0;
+        hashCode += super.hashCode();
+        hashCode += prime * numberOfBombs;
+        return hashCode;
+    }
 
-        return Objects.hash(super.hashCode(), numberOfMachineGuns, numberOfMissiles);
+    public String getCharacteristics(){
+        StringBuilder sb = new StringBuilder(super.getCharacteristics());
+        sb.append("Bombs=").append(this.numberOfBombs).append("\n");
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(Stormtrooper.class.getSimpleName());
+        sb.append(":\n").append(getCharacteristics()).append("\n");
+        return sb.toString();
     }
 }

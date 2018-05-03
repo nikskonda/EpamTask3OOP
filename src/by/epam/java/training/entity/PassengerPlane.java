@@ -17,8 +17,8 @@ public class PassengerPlane extends CivilPlane implements Serializable {
     public PassengerPlane() {
     }
 
-    public PassengerPlane(String name, int crewMembers, double maxSpeedInKPH, double weightInKG, double massOfFuelInKG, Wing wing, List<Engine> engines, int numberOfSeats, String typeOfSeats) {
-        super(name, crewMembers, maxSpeedInKPH, weightInKG, massOfFuelInKG, wing, engines);
+    public PassengerPlane(String name, int crewMembers, double maxSpeed, int fuelConsumption, double distantion, Wing wing, Engine engine, String className, int numberOfSeats, String typeOfSeats) {
+        super(name, crewMembers, maxSpeed, fuelConsumption, distantion, wing, engine, className);
         this.numberOfSeats = numberOfSeats;
         this.typeOfSeats = typeOfSeats;
     }
@@ -40,18 +40,43 @@ public class PassengerPlane extends CivilPlane implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        PassengerPlane that = (PassengerPlane) o;
-        return numberOfSeats == that.numberOfSeats &&
-                Objects.equals(typeOfSeats, that.typeOfSeats);
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        if (!super.equals(obj)) return false;
+        PassengerPlane passengerPlane = (PassengerPlane) obj;
+        if (this.numberOfSeats != passengerPlane.numberOfSeats){
+            return false;
+        }
+        if (this.typeOfSeats.equals(passengerPlane.typeOfSeats)){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public int hashCode() {
+        final int prime = 31;
+        int hashCode = 0;
+        hashCode += super.hashCode();
+        hashCode += this.numberOfSeats * prime;
+        hashCode += this.typeOfSeats.hashCode();
+        return hashCode;
+    }
 
-        return Objects.hash(super.hashCode(), numberOfSeats, typeOfSeats);
+
+    public String getCharacteristics(){
+        StringBuilder sb = new StringBuilder(super.getCharacteristics());
+        sb.append("Seats=").append(this.numberOfSeats).append("\n")
+                .append("Type=").append(this.typeOfSeats).append("\n");
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(PassengerPlane.class.getSimpleName());
+        sb.append(":\n").append(getCharacteristics()).append("\n");
+
+        return sb.toString();
     }
 }

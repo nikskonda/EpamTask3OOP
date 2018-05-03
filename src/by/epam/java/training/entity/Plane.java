@@ -2,38 +2,37 @@ package by.epam.java.training.entity;
 
 import by.epam.java.training.entity.component.Engine;
 import by.epam.java.training.entity.component.Wing;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Objects;
+import java.util.Comparator;
 
-/**
- *
- * @author niksk
- */
-public class Plane implements Serializable {
+public class Plane implements Serializable{
 
     private static final long serialVersionUID = 1L;
+    private static final Logger LOGGER = Logger.getLogger(Plane.class);
     
     private String name;
     private int crewMembers;
-    private double maxSpeedInKPH;
-    private double weightInKG;
-    private double massOfFuelInKG;
+    private double maxSpeed;
+    private int fuelConsumption;
+    private double distantion;
     private Wing wing;
-    private List<Engine> engines;
+    private Engine engine;
 
     public Plane() {
+        this.wing = new Wing();
+        this.engine = new Engine();
     }
 
-    public Plane(String name, int crewMembers, double maxSpeedInKPH, double weightInKG, double massOfFuelInKG, Wing wing, List<Engine> engines) {
+    public Plane(String name, int crewMembers, double maxSpeed, int fuelConsumption, double distantion, Wing wing, Engine engine) {
         this.name = name;
         this.crewMembers = crewMembers;
-        this.maxSpeedInKPH = maxSpeedInKPH;
-        this.weightInKG = weightInKG;
-        this.massOfFuelInKG = massOfFuelInKG;
+        this.maxSpeed = maxSpeed;
+        this.fuelConsumption = fuelConsumption;
+        this.distantion = distantion;
         this.wing = wing;
-        this.engines = engines;
+        this.engine = engine;
     }
 
 
@@ -53,28 +52,12 @@ public class Plane implements Serializable {
         this.crewMembers = crewMembers;
     }
 
-    public double getMaxSpeedInKPH() {
-        return maxSpeedInKPH;
+    public double getMaxSpeed() {
+        return maxSpeed;
     }
 
-    public void setMaxSpeedInKPH(double maxSpeedInKPH) {
-        this.maxSpeedInKPH = maxSpeedInKPH;
-    }
-
-    public double getWeightInKG() {
-        return weightInKG;
-    }
-
-    public void setWeightInKG(double weightInKG) {
-        this.weightInKG = weightInKG;
-    }
-
-    public double getMassOfFuelInKG() {
-        return massOfFuelInKG;
-    }
-
-    public void setMassOfFuelInKG(double massOfFuelInKG) {
-        this.massOfFuelInKG = massOfFuelInKG;
+    public void setMaxSpeed(double maxSpeed) {
+        this.maxSpeed = maxSpeed;
     }
 
     public Wing getWing() {
@@ -85,43 +68,92 @@ public class Plane implements Serializable {
         this.wing = wing;
     }
 
-    public List<Engine> getEngines() {
-        return engines;
+    public Engine getEngine() {
+        return engine;
     }
 
-    public void setEngines(List<Engine> engines) {
-        this.engines = engines;
+    public void setEngine(Engine engine) {
+        this.engine = engine;
     }
 
-    public void addEngine(Engine engine){
-        this.engines.add(engine);
+    public int getFuelConsumption() {
+        return fuelConsumption;
     }
 
-    public Engine getEngine(int index){
-        return this.engines.get(index);
+    public void setFuelConsumption(int fuelConsumption) {
+        this.fuelConsumption = fuelConsumption;
     }
 
-    public void setEngine(int index, Engine engine){
-        this.engines.set(index, engine);
+    public double getDistantion() {
+        return distantion;
     }
+
+    public void addDistantion(double distantion) {
+        this.distantion += distantion;
+    }
+
+
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null) return false;
-        if (this == o) return true;
-        if (!(o instanceof Plane)) return false;
-        Plane plane = (Plane) o;
-        return crewMembers == plane.crewMembers &&
-                Double.compare(plane.maxSpeedInKPH, maxSpeedInKPH) == 0 &&
-                Double.compare(plane.weightInKG, weightInKG) == 0 &&
-                Double.compare(plane.massOfFuelInKG, massOfFuelInKG) == 0 &&
-                Objects.equals(name, plane.name) &&
-                Objects.equals(wing, plane.wing) &&
-                Objects.equals(engines, plane.engines);
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (this == obj) return true;
+        if (!(obj instanceof Plane)) return false;
+        Plane plane = (Plane) obj;
+
+        if (!this.name.equals(plane.name)) {
+            return false;
+        }
+        if (this.crewMembers != plane.crewMembers){
+            return false;
+        }
+        if (Double.compare(this.maxSpeed, plane.maxSpeed) != 0){
+            return false;
+        }
+        if (this.fuelConsumption != plane.fuelConsumption){
+            return false;
+        }
+        if (Double.compare(plane.distantion, this.distantion) != 0){
+            return false;
+        }
+        if (this.wing.equals(plane.wing)){
+            return false;
+        }
+        if (this.engine.equals(plane.engine)){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, crewMembers, maxSpeedInKPH, weightInKG, massOfFuelInKG, wing, engines);
+        final int prime = 31;
+        int hashCode = 0;
+        hashCode += this.name.hashCode();
+        hashCode += this.crewMembers*prime;
+        hashCode += Double.hashCode(this.maxSpeed);
+        hashCode += this.fuelConsumption * prime;
+        hashCode += Double.hashCode(this.distantion);
+        hashCode += this.wing.hashCode();
+        hashCode += this.engine.hashCode();
+        return hashCode;
     }
+
+    public String getCharacteristics(){
+        StringBuilder sb = new StringBuilder(this.name);
+        sb.append("\nCrew Members=").append(this.crewMembers)
+                .append("\nMax Speed=").append(this.maxSpeed)
+                .append("\nFuel Consumption=").append(this.fuelConsumption)
+                .append("\nDistantion=").append(this.distantion).append("\n")
+                .append(this.wing).append(this.engine);
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(Plane.class.getSimpleName());
+        sb.append(":\n").append(this.getCharacteristics());
+        return sb.toString();
+    }
+
 }
