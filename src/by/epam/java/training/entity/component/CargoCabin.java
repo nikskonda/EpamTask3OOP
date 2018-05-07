@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class CargoCabin implements Serializable, Comparator<CargoCabin> {
+public class CargoCabin implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -60,11 +60,6 @@ public class CargoCabin implements Serializable, Comparator<CargoCabin> {
 
     public void setCapacity(double capacity) {
         this.capacity = capacity;
-    }
-
-    @Override
-    public int compare(CargoCabin cargoCabin1, CargoCabin cargoCabin2) {
-        return Double.compare(cargoCabin1.capacity, cargoCabin2.capacity);
     }
 
     @Override

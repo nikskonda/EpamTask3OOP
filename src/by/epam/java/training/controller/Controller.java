@@ -12,15 +12,9 @@ import by.epam.java.training.entity.criteria.PlaneCriteria;
 import by.epam.java.training.printer.Printer;
 import by.epam.java.training.service.ServiceFactory;
 
-/**
- *
- * @author niksk
- */
+
 public class Controller {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         BuilderManager builderManager = new BuilderManager();
 
@@ -57,8 +51,14 @@ public class Controller {
         ServiceFactory.getInstance().getProductService().sort(airline, PlaneCriteria.FUEL_CONSUMPTION);
         Printer.printAirline(airline);
 
+        Printer.printMessage("Emply List + log");
+        Printer.printPlaneList(ServiceFactory.getInstance().getProductService().find(airline, new Criteria(PlaneCriteria.FUEL_CONSUMPTION, 200.0, 400)));
+
+
         Printer.printMessage("Search");
         Printer.printPlaneList(ServiceFactory.getInstance().getProductService().find(airline, new Criteria(PlaneCriteria.FUEL_CONSUMPTION, 200, 400)));
+
+
     }
     
 }

@@ -5,6 +5,10 @@ package by.epam.java.training.service.impl;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import by.epam.java.training.service.impl.search.SearchFactory;
+import by.epam.java.training.service.impl.sort.SortFactory;
+import by.epam.java.training.service.validation.ValidatorFactory;
 import org.apache.log4j.Logger;
 import by.epam.java.training.entity.Plane;
 import by.epam.java.training.entity.Airline;
@@ -15,7 +19,7 @@ import by.epam.java.training.entity.PassengerPlane;
 import by.epam.java.training.entity.criteria.Criteria;
 import by.epam.java.training.entity.criteria.PlaneCriteria;
 import by.epam.java.training.service.impl.search.SearchManager;
-import by.epam.java.training.service.impl.sort.SortPlaneManager;
+import by.epam.java.training.service.impl.sort.SortManager;
 import by.epam.java.training.service.validation.CriteriaValidatorManager;
 
 
@@ -26,29 +30,25 @@ public class PlaneServiceImpl implements PlaneService {
     @Override
     public void sort(Airline airline, PlaneCriteria planeCriteria) {
 
-        SortPlaneManager sort = new SortPlaneManager();
+        SortManager sort = SortFactory.getInstance().getSortManager();
         Collections.sort(airline.getPlaneList(), sort.sortByCriteria(planeCriteria));
     }
 
     @Override
     public List<Plane> find(Airline airline, Criteria criteria) {
-        CriteriaValidatorManager validatorManager = new CriteriaValidatorManager();
+        CriteriaValidatorManager validatorManager = ValidatorFactory.getInstance().getValidatorManager();
         if (!validatorManager.isValidCriteria(criteria)){
             PrinterLog.printLogWarn("Not Valid Value", this.LOGGER);
             return  null;
         }
 
         List<Plane> foundPlanes= new ArrayList<>();
-        SearchManager search = new SearchManager();
-
+        SearchManager search = SearchFactory.getInstance().getValidatorManager();
         for (Plane plane : airline){
-
             if (search.IsEqual(plane, criteria)){
-
                 foundPlanes.add(plane);
             }
         }
-
         return foundPlanes;
     }
 

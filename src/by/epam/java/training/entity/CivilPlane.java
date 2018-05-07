@@ -17,6 +17,7 @@ import java.util.Objects;
  * @author niksk
  */
 public class CivilPlane extends Plane implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private String className;

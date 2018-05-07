@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @author niksk
  */
-public class Gun implements Serializable, Comparator<Gun> {
+public class Gun implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -52,12 +52,6 @@ public class Gun implements Serializable, Comparator<Gun> {
 
     public void setNumberOfShells(int numberOfShells) {
         this.numberOfShells = numberOfShells;
-    }
-
-
-    @Override
-    public int compare(Gun g1, Gun g2) {
-        return Double.compare(g1.caliber, g2.caliber);
     }
 
 

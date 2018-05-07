@@ -3,7 +3,7 @@ package by.epam.java.training.entity.component;
 import java.io.Serializable;
 import java.util.Comparator;
 
-public class Wing implements Serializable, Comparator<Wing> {
+public class Wing implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,11 +32,6 @@ public class Wing implements Serializable, Comparator<Wing> {
 
     public void setWingArea(double wingArea) {
         this.wingArea = wingArea;
-    }
-
-    @Override
-    public int compare(Wing w1, Wing w2) {
-        return Double.compare(w1.wingArea, w2.wingArea);
     }
 
     @Override

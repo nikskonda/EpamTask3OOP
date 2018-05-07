@@ -4,7 +4,9 @@ import by.epam.java.training.entity.component.CargoCabin;
 import by.epam.java.training.entity.component.Engine;
 import by.epam.java.training.entity.component.Wing;
 
-public class CargoPlane extends CivilPlane{
+import java.io.Serializable;
+
+public class CargoPlane extends CivilPlane implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

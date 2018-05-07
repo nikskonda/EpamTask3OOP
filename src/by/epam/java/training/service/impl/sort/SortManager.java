@@ -9,11 +9,11 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SortPlaneManager {
+public class SortManager {
 
     private Map<PlaneCriteria, Comparator> sorts = new HashMap<>();
 
-    public SortPlaneManager(){
+    public SortManager(){
         this.sorts.put(PlaneCriteria.DISTANTION, new SortByDistation());
         this.sorts.put(PlaneCriteria.FUEL_CONSUMPTION, new SortByFuelConsumption());
     }
