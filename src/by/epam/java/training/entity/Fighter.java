@@ -61,10 +61,9 @@ public class Fighter extends MilitaryPlane implements Serializable {
     @Override
     public int hashCode() {
         final int prime = 31;
-        int hashCode = 0;
-        hashCode += super.hashCode();
-        hashCode += prime * this.numberOfMissiles;
-        hashCode += prime * this.numberOfMachineGuns;
+        int hashCode = super.hashCode();
+        hashCode = prime * hashCode + this.numberOfMachineGuns;
+        hashCode = prime * hashCode + this.numberOfMissiles;
         return hashCode;
     }
 
@@ -76,7 +75,7 @@ public class Fighter extends MilitaryPlane implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public String asString() {
         StringBuilder sb = new StringBuilder(Fighter.class.getSimpleName());
         sb.append(":\n").append(getCharacteristics()).append("\n");
         return sb.toString();

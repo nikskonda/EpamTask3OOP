@@ -65,37 +65,28 @@ public class CargoCabin implements Serializable{
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-
+        if (obj == null)return false;
+        if (getClass() != obj.getClass()) return false;
         CargoCabin cargoCabin = (CargoCabin) obj;
-
-        if (Double.compare(cargoCabin.lenght, lenght) != 0){
-            return false;
-        }
-        if (Double.compare(cargoCabin.width, width) != 0){
-            return false;
-        }
-        if (Double.compare(cargoCabin.height, height) != 0){
-            return false;
-        }
-        if (Double.compare(cargoCabin.capacity, capacity) != 0){
-            return false;
-        }
+        if (Double.compare(cargoCabin.lenght, lenght) != 0) return false;
+        if (Double.compare(cargoCabin.width, width) != 0) return false;
+        if (Double.compare(cargoCabin.height, height) != 0) return false;
+        if (Double.compare(cargoCabin.capacity, capacity) != 0) return false;
         return true;
     }
 
     @Override
     public int hashCode() {
-        int hashCode = 0;
-        hashCode += Double.hashCode(this.capacity);
-        hashCode += Double.hashCode(this.height);
-        hashCode += Double.hashCode(this.lenght);
-        hashCode += Double.hashCode(this.width);
+        final int prime = 31;
+        int hashCode = 1;
+        hashCode = hashCode * prime + Double.hashCode(this.capacity);
+        hashCode = hashCode * prime + Double.hashCode(this.height);
+        hashCode = hashCode * prime + Double.hashCode(this.lenght);
+        hashCode = hashCode * prime + Double.hashCode(this.width);
         return  hashCode;
     }
 
-    @Override
-    public String toString() {
+    public String asString() {
         StringBuilder sb = new StringBuilder(CargoCabin.class.getSimpleName());
         sb.append(":\n\tLenght").append(this.lenght)
                 .append("\n\tWidth=").append(this.width)

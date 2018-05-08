@@ -63,29 +63,32 @@ public class Airline implements Serializable, Iterable<Plane> {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Airline airline = (Airline) obj;
-        if (!this.name.equals(airline.name)){
-            return false;
-        }
-        if (!this.planeList.equals(airline.planeList)){
-            return false;
-        }
+
+        if (this.name != null) {
+            if (!this.name.equals(airline.name)) return false; }
+        else if (airline.name == null) return false;
+
+        if (this.planeList != null) {
+            if (!this.planeList.equals(airline.planeList)) return false; }
+        else if (airline.planeList == null) return false;
+
         return true;
     }
 
     @Override
     public int hashCode() {
-        int hashCode = 0;
-        hashCode += this.name.hashCode();
-        hashCode += this.planeList.hashCode();
+        final int prime = 31;
+        int hashCode = 1;
+        hashCode = prime * hashCode + (planeList != null ? planeList.hashCode() : 0);
+        hashCode = prime * hashCode + (name != null ? name.hashCode() : 0);
         return hashCode;
     }
 
-    @Override
-    public String toString() {
+    public String asString() {
         StringBuilder sb = new StringBuilder(Airline.class.getSimpleName());
         sb.append(": ").append(this.name).append("\n");
             for (Plane plane :this.planeList){
-                sb.append(plane);
+                sb.append(plane.asString());
             }
         return sb.toString();
     }

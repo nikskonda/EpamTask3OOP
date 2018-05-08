@@ -76,41 +76,34 @@ public class Engine implements Serializable {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         Engine engine = (Engine) obj;
 
-        if (this.name.equals(engine.name)){
-            return false;
-        }
-        if (this.model.equals(engine.model)){
-            return false;
-        }
-        if (Double.compare(engine.weight, weight) != 0){
-            return false;
-        }
-        if (Double.compare(engine.power, power) != 0){
-            return false;
-        }
-        if (Double.compare(engine.capacity, capacity) != 0){
-            return false;
-        }
+        if (this.name == null || engine.name == null) return false;
+        else if (!this.name.equals(engine.name)) return false;
+
+        if (this.model.equals(engine.model)) return false;
+        if (Double.compare(engine.weight, weight) != 0) return false;
+        if (Double.compare(engine.power, power) != 0) return false;
+        if (Double.compare(engine.capacity, capacity) != 0) return false;
         return true;
     }
 
     @Override
     public int hashCode() {
-        int hashCode = 0;
-        hashCode+=this.name.hashCode();
-        hashCode+= Double.hashCode(this.capacity);
-        hashCode+= Double.hashCode(this.weight);
-        hashCode+= Double.hashCode(this.power);
-        hashCode+=Double.hashCode(this.power);
+        final int prime = 31;
+        int hashCode = 1;
+        hashCode = hashCode * prime + this.name.hashCode();
+        hashCode = hashCode * prime + Double.hashCode(this.capacity);
+        hashCode = hashCode * prime + Double.hashCode(this.weight);
+        hashCode = hashCode * prime + Double.hashCode(this.power);
+        hashCode = hashCode * prime + Double.hashCode(this.power);
         return hashCode;
     }
 
-    @Override
-    public String toString() {
 
+    public String asString() {
         StringBuilder sb = new StringBuilder(Engine.class.getSimpleName());
         sb.append(":\n\t").append(this.name)
                 .append("\n\tModel=").append(this.model)

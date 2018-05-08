@@ -10,11 +10,11 @@ public class Printer {
     private Printer(){}
 
     public static void printAirline(Airline airline){
-        System.out.println(airline);
+        System.out.println(airline.asString());
     }
 
     public static void printPlane(Plane plane){
-        System.out.println(plane);
+        System.out.println(plane.asString());
     }
     public static void printPlaneList(List<Plane> planeList){
         if (planeList == null || planeList.size()==0){

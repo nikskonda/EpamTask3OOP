@@ -41,21 +41,23 @@ public class CivilPlane extends Plane implements Serializable {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         if (!super.equals(obj)) return false;
         CivilPlane civilPlane = (CivilPlane) obj;
 
-        if (!this.className.equals(civilPlane.className)) {
-            return false;
-        }
+        if (this.className != null) {
+            if (!this.className.equals(civilPlane.className)) return false; }
+        else if (civilPlane.className == null) return false;
+
         return true;
     }
 
     @Override
     public int hashCode() {
-        int hashCode = 0;
-        hashCode += super.hashCode();
-        hashCode += this.className.hashCode();
+        final int prime = 31;
+        int hashCode = super.hashCode();;
+        hashCode = prime * hashCode + (className != null ? className.hashCode() : 0);
         return hashCode;
     }
 
@@ -66,7 +68,7 @@ public class CivilPlane extends Plane implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public String asString() {
         StringBuilder sb = new StringBuilder(CivilPlane.class.getSimpleName());
         sb.append(":\n").append(getCharacteristics());
         return sb.toString();

@@ -40,7 +40,8 @@ public class Stormtrooper extends MilitaryPlane implements Serializable {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         if (!super.equals(obj)) return false;
         Stormtrooper fighter = (Stormtrooper) obj;
         if (this.numberOfBombs != fighter.numberOfBombs){
@@ -52,9 +53,8 @@ public class Stormtrooper extends MilitaryPlane implements Serializable {
     @Override
     public int hashCode() {
         final int prime = 31;
-        int hashCode = 0;
-        hashCode += super.hashCode();
-        hashCode += prime * numberOfBombs;
+        int hashCode = super.hashCode();
+        hashCode = prime * hashCode + this.numberOfBombs;
         return hashCode;
     }
 
@@ -65,7 +65,7 @@ public class Stormtrooper extends MilitaryPlane implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public String asString() {
         StringBuilder sb = new StringBuilder(Stormtrooper.class.getSimpleName());
         sb.append(":\n").append(getCharacteristics()).append("\n");
         return sb.toString();

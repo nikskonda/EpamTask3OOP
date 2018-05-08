@@ -37,7 +37,8 @@ public class Wing implements Serializable {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         Wing wing = (Wing) obj;
         if (this.wingArea != wing.wingArea){
             return false;
@@ -50,14 +51,14 @@ public class Wing implements Serializable {
 
     @Override
     public int hashCode() {
-        int hashCode = 0;
-        hashCode +=  Double.hashCode(this.wingArea);
-        hashCode +=  Double.hashCode(this.wingspan);
+        final int prime = 31;
+        int hashCode = 1;
+        hashCode = hashCode * prime + Double.hashCode(this.wingArea);
+        hashCode = hashCode * prime + Double.hashCode(this.wingspan);
         return hashCode;
     }
 
-    @Override
-    public String toString() {
+    public String asString() {
         StringBuilder sb = new StringBuilder(Wing.class.getSimpleName());
         sb.append(":\n\tWingspan=").append(this.wingspan).append(" Meters\n")
                 .append("\tWing Area=").append(this.wingArea).append(" Square Meters\n");

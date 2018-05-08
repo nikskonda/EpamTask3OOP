@@ -42,20 +42,20 @@ public class Controller {
         Printer.printAirline(airline);
 
         int capacity = ServiceFactory.getInstance().getProductService().calcCarringCapacity(airline);
-        Printer.printMessage("CarringCapacity = " + capacity);
+        Printer.printMessage("***\nCarringCapacity = " + capacity);
 
         int seats = ServiceFactory.getInstance().getProductService().calcNumberOfSeats(airline);
-        Printer.printMessage("Seats = " + seats);
+        Printer.printMessage("***\nSeats = " + seats);
 
-        Printer.printMessage("Sort");
+        Printer.printMessage("***\nSort by fuel ...");
         ServiceFactory.getInstance().getProductService().sort(airline, PlaneCriteria.FUEL_CONSUMPTION);
         Printer.printAirline(airline);
 
-        Printer.printMessage("Emply List + log");
+        Printer.printMessage("***\nEmply List + log");
         Printer.printPlaneList(ServiceFactory.getInstance().getProductService().find(airline, new Criteria(PlaneCriteria.FUEL_CONSUMPTION, 200.0, 400)));
 
 
-        Printer.printMessage("Search");
+        Printer.printMessage("***\nSearch");
         Printer.printPlaneList(ServiceFactory.getInstance().getProductService().find(airline, new Criteria(PlaneCriteria.FUEL_CONSUMPTION, 200, 400)));
 
 

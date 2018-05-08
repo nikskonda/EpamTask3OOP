@@ -44,33 +44,35 @@ public class MilitaryPlane extends Plane implements Serializable{
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         if (!super.equals(obj)) return false;
         MilitaryPlane militaryPlane = (MilitaryPlane) obj;
 
-        if (!this.gun.equals(militaryPlane.gun)){
-            return false;
-        }
+        if (this.gun != null) {
+            if (!this.gun.equals(militaryPlane.gun)) return false; }
+        else if (militaryPlane.gun == null) return false;
 
         return true;
+
     }
 
     @Override
     public int hashCode() {
-        int hashCode = 0;
-        hashCode += super.hashCode();
-        hashCode += this.gun.hashCode();
+        final int prime = 31;
+        int hashCode = super.hashCode();;
+        hashCode = prime * hashCode + (gun != null ? gun.hashCode() : 0);
         return hashCode;
     }
 
     public String getCharacteristics(){
         StringBuilder sb = new StringBuilder(super.getCharacteristics());
-        sb.append(this.gun);
+        sb.append(this.gun.asString());
         return sb.toString();
     }
 
     @Override
-    public String toString() {
+    public String asString() {
         StringBuilder sb = new StringBuilder(MilitaryPlane.class.getSimpleName());
         sb.append(":\n").append(getCharacteristics()).append("\n");
         return sb.toString();

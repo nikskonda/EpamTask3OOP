@@ -60,30 +60,25 @@ public class Gun implements Serializable{
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Gun gun = (Gun) obj;
-        if (!this.name.equals(gun.name)){
-            return false;
-        }
-        if (this.caliber != gun.caliber){
-            return false;
-        }
-        if (this.numberOfShells != gun.numberOfShells){
-            return false;
-        }
+        if (this.name == null || gun.name == null) return false;
+        else if (!this.name.equals(gun.name)) return false;
+        if (Double.compare(this.caliber, gun.caliber) != 0) return false;
+        if (this.numberOfShells != gun.numberOfShells) return false;
         return true;
     }
+
 
     @Override
     public int hashCode() {
         final int prime = 31;
-        int hashCode = 0;
-        hashCode += this.name.hashCode();
-        hashCode += Double.hashCode(this.caliber);
-        hashCode += prime*numberOfShells;
+        int hashCode = 1;
+        hashCode = hashCode * prime + this.name.hashCode();
+        hashCode = hashCode * prime +  Double.hashCode(this.caliber);
+        hashCode = hashCode * prime + this.numberOfShells;
         return hashCode;
     }
 
-    @Override
-    public String toString() {
+    public String asString() {
         StringBuilder sb = new StringBuilder(Gun.class.getSimpleName());
         sb.append(":\n\t").append(this.name)
                 .append("\n\tCaliber=").append(this.caliber)

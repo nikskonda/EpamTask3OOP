@@ -42,25 +42,26 @@ public class PassengerPlane extends CivilPlane implements Serializable {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         if (!super.equals(obj)) return false;
         PassengerPlane passengerPlane = (PassengerPlane) obj;
         if (this.numberOfSeats != passengerPlane.numberOfSeats){
             return false;
         }
-        if (this.typeOfSeats.equals(passengerPlane.typeOfSeats)){
-            return false;
-        }
+        if (this.typeOfSeats != null) {
+            if (!this.typeOfSeats.equals(passengerPlane.typeOfSeats)) return false; }
+        else if (passengerPlane.typeOfSeats == null) return false;
+
         return true;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
-        int hashCode = 0;
-        hashCode += super.hashCode();
-        hashCode += this.numberOfSeats * prime;
-        hashCode += this.typeOfSeats.hashCode();
+        int hashCode = super.hashCode();
+        hashCode = prime * hashCode + (this.typeOfSeats != null ? typeOfSeats.hashCode() : 0);
+        hashCode = prime * hashCode + this.numberOfSeats;
         return hashCode;
     }
 
@@ -73,7 +74,7 @@ public class PassengerPlane extends CivilPlane implements Serializable {
     }
 
     @Override
-    public String toString() {
+    public String asString() {
         StringBuilder sb = new StringBuilder(PassengerPlane.class.getSimpleName());
         sb.append(":\n").append(getCharacteristics()).append("\n");
 
